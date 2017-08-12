@@ -10,14 +10,14 @@
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest()
       xhr.addEventListener('load', () => resolve(JSON.parse(xhr.responseText)))
-      xhr.addEventListener('error', () => reject())
+      xhr.addEventListener('error', reject)
       xhr.open(method, url)
       xhr.send()
     })
   }
 
   const renderList = $repoList => innerHtml => {
-    let $parent = document.querySelector($repoList)
+    const $parent = document.querySelector($repoList)
     $parent.innerHTML = innerHtml
   }
 
@@ -28,18 +28,18 @@
 
   const getHtmlMemberList = members =>
     members.reduce((html, { login, avatar_url }) =>
-      html + `<li><b>${login}</b><img src="${avatar_url}" width=25px /></li>`
+      html + `<li><h2>${login}</h2><img src="${avatar_url}" width=230px /></li>`
       , '')
 
   window.onload = () => {
     request(hyfReposApiEndpoint, 'GET')
       .then(getHtmlRepoList)
       .then(renderList($repoList))
-      .catch(renderList($repoList)('<li>Error</li>'))
+      .catch(() => renderList($repoList)('<li>There is Error</li>'))
 
     request(hyfMembersApiEndpoint, 'GET')
       .then(getHtmlMemberList)
       .then(renderList($memberList))
-      .catch(renderList($memberList)('<li>Error</li>'))
+      .catch(() => renderList($memberList)('<li>There is Error</li>'))
   }
 })()
