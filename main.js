@@ -35,11 +35,11 @@
     request(hyfReposApiEndpoint, 'GET')
       .then(getHtmlRepoList)
       .then(renderList($repoList))
-      .catch(() => renderList($repoList)('<li>There is Error</li>'))
+      .catch(() => renderList($repoList)('<li>Error</li>'))
 
     request(hyfMembersApiEndpoint, 'GET')
       .then(getHtmlMemberList)
       .then(renderList($memberList))
-      .catch(() => renderList($memberList)('<li>There is Error</li>'))
+      .catch(() => renderList($memberList)('<li>Error</li>'))
   }
 })()
