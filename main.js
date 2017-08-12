@@ -6,6 +6,7 @@
   const $repoList = '.repo-list ul'
   const $memberList = '.member-list ul'
 
+  // Traditional method for doing an XHR request: event-based
   const getJSON = url => {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest()
@@ -16,6 +17,7 @@
     })
   }
 
+  // New method for doing an XHR request: promise-baed
   const fetchJSON = url => fetch(url).then(res => res.json())
 
   const renderList = $repoList => innerHtml => {
